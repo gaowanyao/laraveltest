@@ -19,6 +19,7 @@
 
 Route::get("/","SiteController@home");
 Route::get("news","NewsController@index");
+Route::get("articles","ArticleController@index");
 
 
 Route::get('/hello', function () {
