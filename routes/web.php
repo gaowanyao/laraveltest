@@ -20,6 +20,10 @@
 Route::get("/","SiteController@home");
 Route::get("news","NewsController@index");
 Route::get("articles","ArticleController@index");
+//Route::get("articles/{id}","ArticleController@show")->where(["id"=>'[0-9]+']);  //告诉框架id是从0-9之间的数字一个或者多个
+Route::get("articles/{id}","ArticleController@show")->where(["id"=>'\d+']);  //告诉框架id是从0-9之间的数字一个或者多个 \d是一样的
+Route::get("articles/create","ArticleController@create")->middleware("auth"); //必须要登录才能发表文章
+Route::post("articles/create","ArticleController@store")->middleware("auth");  //post方式提交，调用store方法
 
 
 Route::get('/hello', function () {
@@ -32,3 +36,7 @@ Route::get('/about', function () {
     $data = ['content'=>$content,'age'=>23];
     return view('about',$data);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');//在控制器中指定中间件
+//Route::get('/home', 'HomeController@index')->name('home')->middleware("auth");
